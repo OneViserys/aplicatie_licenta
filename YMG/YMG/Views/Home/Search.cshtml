@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search results for <b>@ViewBag.q</b>:</h2>
+
+<div class="panel panel-default">
+
+    @if (ViewBag.mov_t.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.mov_t.Count results found in movie titles:</h4>
+            <ul>
+                @foreach (var movie in ViewBag.mov_t)
+                {
+                    string aux = movie.Title;
+                    <li>@Html.ActionLink(aux, "Details", "Movies", new { id = movie.MovieId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.mov_d.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.mov_d.Count results found in movie directors:</h4>
+            <ul>
+                @foreach (var movie in ViewBag.mov_d)
+                {
+                    string aux = movie.Title;
+                    <li>@Html.ActionLink(aux, "Details", "Movies", new { id = movie.MovieId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.mov_de.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.mov_de.Count results found in movie descriptions:</h4>
+            <ul>
+                @foreach (var movie in ViewBag.mov_de)
+                {
+                    string aux = movie.Title;
+                    <li>@Html.ActionLink(aux, "Details", "Movies", new { id = movie.MovieId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.mov_y.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.mov_y.Count results found in release years:</h4>
+            <ul>
+                @foreach (var movie in ViewBag.mov_y)
+                {
+                    string aux = movie.Title;
+                    <li>@Html.ActionLink(aux, "Details", "Movies", new { id = movie.MovieId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.mov_k.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.mov_k.Count results found in movies keywords:</h4>
+            <ul>
+                @foreach (var movie in ViewBag.mov_k)
+                {
+                    string aux = movie.Title;
+                    <li>@Html.ActionLink(aux, "Details", "Movies", new { id = movie.MovieId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.gen.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.gen.Count results found in genres:</h4>
+            <ul>
+                @foreach (var genre in ViewBag.gen)
+                {
+                    string aux = genre.Name;
+                    <li>@Html.ActionLink(aux, "Details", "Genres", new { id = genre.GenreId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+
+
+    @if (ViewBag.act.Count != 0)
+    {
+        <div class="panel-body">
+            <h4>@ViewBag.act.Count results found in actors:</h4>
+            <ul>
+                @foreach (var actor in ViewBag.act)
+                {
+                    string aux = actor.FullName;
+                    <li>@Html.ActionLink(aux, "Details", "Actors", new { id = actor.ActorId }, null)</li>
+                }
+            </ul>
+        </div>
+    }
+
+    @if(ViewBag.act.Count == 0 && ViewBag.gen.Count == 0 && ViewBag.mov_k.Count == 0 && ViewBag.mov_y.Count == 0 && ViewBag.mov_t.Count == 0 && ViewBag.mov_d.Count == 0 && ViewBag.mov_de.Count == 0)
+            {
+                <div class="panel-body">
+                    <p><i>No results found.</i></p>
+                </div>
+            }
+
+</div>
+

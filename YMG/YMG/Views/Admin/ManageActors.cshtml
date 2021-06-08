@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ManageMovies";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Manage actors</h2>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm(actionName: "Create", controllerName: "Actors", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary">Add new actor</button>
+        }
+    </div>
+    <div class="panel-body">
+        <table class="table">
+
+            @foreach (var m in ViewBag.actors)
+            {
+                <tr>
+                    <td>@m.FullName</td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "Actors", method: FormMethod.Get, routeValues: new { id = m.ActorId }))
+                        {
+                            <button type="submit" class="btn btn-primary">Details</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Actors", method: FormMethod.Get, routeValues: new { id = m.ActorId }))
+                        {
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Actors", method: FormMethod.Post, routeValues: new { id = m.ActorId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+

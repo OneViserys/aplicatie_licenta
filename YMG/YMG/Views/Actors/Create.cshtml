@@ -1,0 +1,76 @@
+﻿@model YMG.Models.Actor
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create new Actor</h2>
+
+@using (Html.BeginForm(actionName: "Create", controllerName: "Actors", method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(u => u.FullName, "Actor Name:")
+        <br />
+        @Html.TextBoxFor(u => u.FullName, null, new { placeholder = "Enter the Actor's full name", @class = "form-control" })
+        @Html.ValidationMessageFor(u => u.FullName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(u => u.Bio, "Short bio:")
+        <br />
+        @Html.TextAreaFor(u => u.Bio, new
+   {
+       @placeholder = "Movie bio...",
+       cols = "50",
+       rows = "5",
+       @tabindex = "0",
+       @align = "left",
+       @draggable = "false",
+       @class = "form-control",
+   })
+        @Html.ValidationMessageFor(u => u.Bio, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(u => u.PictureUrl, "Picture url:")
+        <br />
+        @Html.TextBoxFor(u => u.PictureUrl, null, new { placeholder = "Enter the image's url", @class = "form-control" })
+        @Html.ValidationMessageFor(u => u.PictureUrl, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(u => u.CopyrightMessage, "Copyright image for the image (if required):")
+        <br />
+        @Html.TextBoxFor(u => u.CopyrightMessage, null, new { placeholder = "copyright info...", @class = "form-control" })
+        @Html.ValidationMessageFor(u => u.CopyrightMessage, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(b => b.MoviesList, "Choose movies:")
+        <br />
+        @for (int i = 0; i < Model.MoviesList.Count(); i++)
+        {
+            @Html.HiddenFor(b => b.MoviesList[i].Id)
+            @Html.HiddenFor(b => b.MoviesList[i].Name)
+            @Html.CheckBoxFor(b => b.MoviesList[i].Checked)
+            @Html.DisplayFor(b => b.MoviesList[i].Name)
+            <br />
+        }
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to Actors List", "Index")
+</div>

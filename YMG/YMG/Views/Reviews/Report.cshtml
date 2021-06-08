@@ -1,0 +1,27 @@
+﻿@model YMG.Models.ReportReview
+@{
+    ViewBag.Title = "Report this review";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h3>@Model.Review.Title</h3>
+    <h5><i>by @Model.Review.Author.UserName</i></h5>
+    <p>@Model.Review.Text</p>
+
+    @using (Html.BeginForm(actionName: "Report", controllerName: "Reviews", method: FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ReviewId)
+        @Html.HiddenFor(m => m.Id)
+
+
+        @Html.LabelFor(b => b.Reason, "What is the reason for reporting?")
+        @Html.TextBoxFor(m => m.Reason, null, new { placeholder = "eg. offensive/ irrelevant ect.", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reason, "", new { @class = "text-danger" })
+
+        <button type="submit" class="btn btn-primary">Submit report</button>
+    }
+</div>
+

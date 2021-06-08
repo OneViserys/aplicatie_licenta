@@ -1,0 +1,48 @@
+﻿@model YMG.Models.Genre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+
+        <label>Genre name:</label>
+        <br />
+        <p>@Model.Name</p>
+
+        @if (ViewBag.favourited == false)
+        {
+            using (Html.BeginForm(actionName: "AddToFavourites", controllerName: "Genres", method: FormMethod.Post, routeValues: new { id = Model.GenreId }))
+            {
+                <button type="submit">Add to favourites</button>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm(actionName: "RemoveFromFavourites", controllerName: "Genres", method: FormMethod.Post, routeValues: new { id = Model.GenreId }))
+            {
+                <button type="submit">Remove from favourites</button>
+            }
+        }
+
+
+
+        @Html.Label("Movies in this category:")
+        @if (Model.Movies.Count > 0)
+        {
+            <ul>
+                @foreach (var mov in Model.Movies.OrderBy(m => m.Year))
+                {
+                    <li><a href="/Movies/Details/@mov.MovieId">@mov.Title</a></li>
+                }
+            </ul>
+        }
+    </div>
+<div class="panel-body">
+    <button class="btn">@Html.ActionLink("Back to List", "Index")</button>
+</div>
+    </div>

@@ -1,0 +1,27 @@
+﻿@model YMG.Models.ReportComment
+@{
+    ViewBag.Title = "Report this comment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>@Model.Comment.Text</h4>
+    <br />
+    <h5><i>by @Model.Comment.Author.UserName</i></h5>
+
+    @using (Html.BeginForm(actionName: "Report", controllerName: "DiscussionForums", method: FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.CommentId)
+        @Html.HiddenFor(m => m.Id)
+
+
+        @Html.LabelFor(b => b.Reason, "What is the reason for reporting?")
+        @Html.TextBoxFor(m => m.Reason, null, new { placeholder = "eg. offensive/ irrelevant ect.", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reason, "", new { @class = "text-danger" })
+
+        <button type="submit" class="btn btn-primary">Submit report</button>
+    }
+</div>
+

@@ -1,0 +1,16 @@
+﻿@model YMG.Models.Comment
+@{
+    ViewBag.Title = "EditComment";
+}
+
+<h2>Edit Comment</h2>
+
+<div class="panel">
+    @using(Html.BeginForm(actionName: "EditComment", controllerName: "DiscussionForums", method: FormMethod.Post, routeValues: new { id = Model.CommentId }))
+    {
+        <textarea cols="80" rows="3" name="new_text">@Model.Text</textarea>
+        <br />
+        <button class="btn btn-default" type="submit">Edit</button>
+    }
+</div>
+

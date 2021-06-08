@@ -1,0 +1,156 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "Movie Details";
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-body" style="display:inline-block; width: 17%">
+        <img src=@Model.PosterUrl style="width:100%">
+
+        @if (Model.CopyrightMessage != null && Model.CopyrightMessage.Length > 0)
+        {
+            <span style="font-size: 9px; color: grey">@Model.CopyrightMessage</span>
+        }
+    </div>
+    <div class="panel-body" style="font-size:45px; font-weight:600; font-family:'Ink Free'; display:inline-block">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+</div>
+<br />
+
+<br />
+<br />
+<label>Rating:</label>
+<p>@ViewBag.app_rating</p>
+<br />
+
+<label>Trailer:</label>
+<br />
+<iframe id="Iframe1" src=@Model.TrailerUrl runat="server" frameborder="0" marginwidth="1" style="width: 50%; height: 300px;"></iframe>
+
+<br />
+<br />
+@if (ViewBag.watchlist)
+{
+    using (Html.BeginForm(actionName: "RemoveFromWatchlist", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Remove from watchlist</button>
+    }
+}
+else
+{
+    using (Html.BeginForm(actionName: "AddToWatchlist", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Add to watchlist</button>
+    }
+
+}
+<br />
+@if (ViewBag.favmov)
+{
+    using (Html.BeginForm(actionName: "RemoveFromFavourites", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Remove from favourites</button>
+    }
+}
+else
+{
+    using (Html.BeginForm(actionName: "AddToFavourites", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Add to favourites</button>
+    }
+
+}
+<br />
+@if (ViewBag.seen)
+{
+    using (Html.BeginForm(actionName: "RemoveFromSeen", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Remove from seen</button>
+    }
+}
+else
+{
+    using (Html.BeginForm(actionName: "AddToSeen", controllerName: "Movies", method: FormMethod.Post, routeValues: new { movieId = Model.MovieId }))
+    {
+        <button type="submit">Add to seen</button>
+    }
+
+}
+<br />
+<br />
+@Html.Label("Description", "Summary:")
+<br />
+@Html.DisplayFor(m => m.Description)
+<br />
+<br />
+@if (Model.Genres != null)
+{
+    @Html.Label("Genres", "Genres:")
+    <br />
+    <ul>
+        @foreach (var genre in Model.Genres.OrderBy(g => g.Name))
+        {
+            <li><a href="/Genres/Details/@genre.GenreId">@genre.Name</a></li>
+        }
+    </ul>
+}
+@Html.Label("Director", "Director:")
+<br />
+@Html.DisplayFor(m => m.Director)
+<br />
+<br />
+@if (Model.Cast != null)
+{
+    @Html.Label("Cast", "Main Cast Members:")
+    <br />
+    <table style="width:90%; text-align:center; border: 1px solid black; border-collapse: collapse">
+        <tr>
+            <th style="width: 30%; border-right:1px solid black; border-collapse: collapse"></th>
+            <th style="width: 35%; border-right:1px solid black; border-collapse: collapse; text-align: center; padding:10px;">Actor Name</th>
+            <th style="width:35%; border-right:1px solid black; border-collapse: collapse; text-align: center">Character portrayed</th>
+        </tr>
+        @foreach (var actor in Model.Characters)
+        {
+        <tr>
+            <td style="width: 30%; border-right:1px solid black; border-collapse: collapse"><img src=@actor.Actor.PictureUrl style="padding: 3px; width: 40%"></td>
+            <td style="width: 35%; border-right:1px solid black; border-collapse: collapse"><a href="/Actors/Details/@actor.ActorId">@actor.Actor.FullName</a></td>
+            <td style="width: 35%; border-right:1px solid black; border-collapse: collapse">@actor.CharacterName</td>
+        </tr>
+        }
+    </table>
+
+}
+@if (Model.Released)
+{
+    if (ViewBag.revs == false)
+    {
+        @Html.ActionLink("Review this movie", "New", "Reviews", new { id = Model.MovieId }, null)
+
+    }
+}
+
+<br />
+<p>Discuss about this movie with other users on the @Html.ActionLink("forum", "ForumDetails", "DiscussionForums", new { id = Model.Forum.DiscussionForumId }, null)</p>
+@if (Model.Reviews.Count > 0)
+{
+    <label>Reviews:</label>
+    <br />
+    foreach (var review in Model.Reviews)
+    {
+        var message = "";
+        if (review.SpoilersAhead)
+        {
+            message = "(Spoiler alert!)";
+        }
+        <p>
+            <a href="/Reviews/Details/@review.ReviewId">@review.Title</a> by @review.Author.UserName <span style="font-size:11px; color: darkgrey"><i>@message</i></span>
+
+
+
+        </p>
+    }
+}
+
+@Html.ActionLink("Back to Movies List", "Index")
+

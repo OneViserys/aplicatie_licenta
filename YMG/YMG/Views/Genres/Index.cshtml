@@ -1,0 +1,20 @@
+﻿@model IEnumerable<YMG.Models.Genre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <h2>Genres</h2>
+
+@foreach (var item in Model) {
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <label>
+                @Html.DisplayFor(modelItem => item.Name)
+            </label>
+            <br />
+            <button class="btn">@Html.ActionLink("Details", "Details", new { id = item.GenreId })</button>
+        </div>
+     </div>
+}
+

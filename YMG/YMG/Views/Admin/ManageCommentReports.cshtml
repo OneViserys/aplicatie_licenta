@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "ManageReports";
+}
+
+<h2>Manage Comment Reports</h2>
+
+@if (ViewBag.replist.Count == 0)
+{
+    <p>No comments were reported and not acted upon. Take a tea break.</p>
+}
+else
+{
+    foreach (var reprev in ViewBag.replist)
+    {
+        <div class="panel-body">
+            <h4>@reprev.Comment.Text</h4>
+            <p>Author: @reprev.Comment.Author.UserName</p>
+            @using (Html.BeginForm(actionName: "ReportCommentDetails", controllerName: "Admin", method: FormMethod.Get, routeValues: new { id = reprev.Id }))
+            {
+                <button class="btn btn-primary">Details</button>
+            }
+        </div>
+    }
+}
+

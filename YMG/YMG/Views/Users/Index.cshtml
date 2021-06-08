@@ -1,0 +1,30 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>@ViewBag.Title</h2>
+<table class="table">
+    <thead>
+        <th>Username</th>
+        <th>Email address</th>
+        <th>Update</th>
+        <th>Details</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+        @foreach (var user in ViewBag.Users)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>@user.Email</td>
+                <td>@Html.ActionLink("Update role", "Edit", new { id = user.Id })</td>
+                <td>@Html.ActionLink("View Details", "Details", new { id = user.Id})</td>
+                <td>@Html.ActionLink("Delete account", "Delete", new { id = user.Id})</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

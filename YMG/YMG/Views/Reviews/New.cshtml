@@ -1,0 +1,47 @@
+﻿@model YMG.Models.Review
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+<div class="panel panel-default">
+    @using (Html.BeginForm(actionName: "New", controllerName: "Reviews", method: FormMethod.Post))
+    {
+    <div class="panel-body">
+        @Html.Label("Title", "Title:")
+        <br />
+        @Html.TextBoxFor(b => b.Title, null, new { placeholder = "Type in the review's title", @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+        <br />
+
+        @Html.Label("Rating", "Rating:")
+        <br />
+        @Html.TextBoxFor(b => b.Rating, null, new { placeholder = "Type in the rating (1-10)", @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.Rating, "", new { @class = "text-danger" })
+        <br />
+
+        @Html.Label("Text", "Review Body:")
+        <br />
+        @Html.TextBoxFor(b => b.Text, null, new { placeholder = "Type in the review body", @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.Text, "", new { @class = "text-danger" })
+        <br />
+
+        @Html.Label("Movie", "Movie:")
+        <br />
+        @Html.HiddenFor(b => b.MovieId)
+        @Html.ValidationMessageFor(b => b.MovieId, "", new { @class = "text-danger" })
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.SpoilersAhead)
+                    @Html.LabelFor(m => m.SpoilersAhead)
+                </div>
+            </div>
+        </div>
+        <br />
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+    }
+</div>

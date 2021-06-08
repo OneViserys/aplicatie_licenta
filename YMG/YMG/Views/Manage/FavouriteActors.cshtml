@@ -1,0 +1,13 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Your Favourite Actors";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var actor in Model.FavouriteActors)
+{
+    <a href="/Actors/Details/@actor.ActorId">@actor.FullName</a>
+    <br />
+}
+

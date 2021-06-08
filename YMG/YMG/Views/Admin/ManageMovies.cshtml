@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "ManageMovies";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Manage movies</h2>
+    </div>
+    <div class="panel-body">
+        @using(Html.BeginForm(actionName: "Create", controllerName: "Movies", method: FormMethod.Get))
+            {
+                <button class="btn btn-primary">Add new movie</button>
+            }
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            
+            @foreach (var m in ViewBag.movies)
+            {
+            <tr>
+                <td>@m.Title</td>
+                <td>
+                    @using (Html.BeginForm(actionName: "Details", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = m.MovieId }))
+                    {
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm(actionName: "Edit", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = m.MovieId }))
+                    {
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    }
+                </td>
+                @if (m.Characters == null || m.Characters.Count == 0)
+                {
+                    <td>
+                        @using (Html.BeginForm(actionName: "AddRoles", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = m.MovieId }))
+                        {
+                            <button type="submit" class="btn btn-primary">Add roles</button>
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @using (Html.BeginForm(actionName: "EditRoles", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = m.MovieId }))
+                        {
+                            <button type="submit" class="btn btn-primary">Edit roles</button>
+                        }
+                    </td>
+                }
+                <td>
+                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Movies", method: FormMethod.Post, routeValues: new { id = m.MovieId }))
+                    {
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+
+</div>
+

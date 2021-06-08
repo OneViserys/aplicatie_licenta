@@ -1,0 +1,37 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+<div>
+    Check out the movies that will be coming to cinemas soon right @Html.ActionLink("here", "ComingSoon", "Movies", null, null).
+</div>
+<br />
+@foreach (var movie in ViewBag.Movies)
+{
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+
+            @Html.Label("Title", "Title:")
+            <br />
+            <p>@movie.Title</p>
+
+            @Html.Label("Year", "Year:")
+            <br />
+            <p>@movie.Year</p>
+
+            @using (Html.BeginForm(actionName: "Details", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = movie.MovieId }))
+            {
+                <button class="btn btn-primary">Details</button>
+            }
+
+        </div>
+        
+    </div>
+}
+
+

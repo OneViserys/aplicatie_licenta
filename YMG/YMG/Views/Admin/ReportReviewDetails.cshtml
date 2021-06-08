@@ -1,0 +1,52 @@
+﻿@model YMG.Models.ReportReview
+@{
+    ViewBag.Title = "ReportReviewDetails";
+}
+
+<h2>Review Report</h2>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Review.Title)
+    @Html.DisplayFor(x => x.Review.Title)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Review.Author.UserName)
+    @Html.DisplayFor(x => x.Review.Author.UserName)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Review.Text)
+    @Html.DisplayFor(x => x.Review.Text)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Review.NumberOfReports)
+    @Html.DisplayFor(x => x.Review.NumberOfReports)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Reason)
+    @Html.DisplayFor(x => x.Reason)
+</div>
+
+
+<div class="panel-body">
+    @using (Html.BeginForm(actionName: "DeleteReview", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Delete the review</button>
+    }
+    @using (Html.BeginForm(actionName: "ClearReviewReport", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Clear this report</button>
+    }
+    @using (Html.BeginForm(actionName: "ClearReviewReports", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Clear all reports for this review</button>
+    }
+</div>
+
+

@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style="font-family: 'Ink Free'; font-weight:600">
+    <h1 style="font-weight:700">yourMovieGuide</h1>
+    <p class="lead" style="font-family:'Ink Free'">your movie guide as far as the eye can see... <i class="fa fa-star-o" aria-hidden="true"></i></p>
+</div>
+<div class="row">
+    @if (ViewBag.Boolean)
+    {
+    <div class="col-md-4">
+        <h2>For our lovely admin team:</h2>
+        <a class="btn btn-primary" href="/Users">User management</a>
+    </div>
+    }
+        <div class="col-md-4">
+        <h2>Movies:</h2>
+        <p>
+            Our ever growing collection of movies is available to you for free. You can find all there is to know about
+            the most notable movies of the last century, share your thoughs and find out <a href="/Reviews">what others have to say</a>, all on
+            your very own Movie Guide app.
+        </p>
+        <p><a class="btn btn-default" href="/Movies">See movies</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Actors:</h2>
+        <p> The actors section offers you details for the most prominent faces of Hollywood as well as their contstantly growing
+        filmography.</p>
+        <p><a class="btn btn-default" href="/Actors">See actors</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Genres</h2>
+        <p>You can easily find movies you will love and long forgotten favourites from your childhood by searching in the genres
+        section, where you can find exactly what you're looking for.</p>
+        <p><a class="btn btn-default" href="/Genres">See genres</a></p>
+    </div>
+</div>

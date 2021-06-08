@@ -1,0 +1,66 @@
+﻿@model YMG.Models.Actor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body" style="font-size:45px; font-weight:600; font-family:'Ink Free'">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+    <div class="panel-body">
+        <img src=@Model.PictureUrl style="width:15%">
+        <br />
+        @if (Model.CopyrightMessage.Length > 0)
+        {
+            <span style="font-size: 9px; color: grey">&copy; @Model.CopyrightMessage</span>
+        }
+    </div>
+
+    <div class="panel-body">
+        @Html.LabelFor(u => u.Bio, "Short bio:")
+        <br />
+        @Html.DisplayFor(u => u.Bio)
+    </div>
+    <br />
+    <div class="panel-body">
+
+        @if (ViewBag.favourited == false)
+        {
+            using (Html.BeginForm(actionName: "AddToFavourites", controllerName: "Actors", method: FormMethod.Post, routeValues: new { id = Model.ActorId }))
+            {
+                <button type="submit">Add to favourites</button>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm(actionName: "RemoveFromFavourites", controllerName: "Actors", method: FormMethod.Post, routeValues: new { id = Model.ActorId }))
+            {
+                <button type="submit">Remove from favourites</button>
+            }
+        }
+    </div>
+    <br />
+    @if (Model.Filmography.Count > 0)
+    {<div class="panel-body">
+            <label>Filmography:</label>
+
+            <ul>
+                @foreach (var movie in Model.Filmography.OrderByDescending(m => m.Year))
+                {
+                    <li>
+                        <a href="/Movies/Details/@movie.MovieId">@movie.Title (@movie.Year)</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+
+    <div class="panel-body">
+        <button class="btn">@Html.ActionLink("Back to List", "Index")</button>
+        <br />
+    </div>
+</div>
