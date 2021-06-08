@@ -34,12 +34,12 @@ namespace YMG
                 var user = new ApplicationUser
                 {
                     UserName = "Admin",
-                    Email = "admin@ymgg.com",
+                    Email = "",
                     FirstName = "Steve",
                     LastName = "Fergusson",
                     Day = 28,
-                    Month = 3,
-                    Year = 2000,
+                    Month = 7,
+                    Year = 1999,
                     ProfilePicture = null
                 };
 
@@ -47,7 +47,7 @@ namespace YMG
                 user.ProfilePicture = null ;
                 //user.ProfilePicture = null;
 
-                var adminCreated = userManager.Create(user, "Admin2021!");
+                var adminCreated = userManager.Create(user, "dummy_password");
                 if (adminCreated.Succeeded)
                 {
                     userManager.AddToRole(user.Id, "Admin");
