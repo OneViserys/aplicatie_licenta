@@ -1,0 +1,235 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Your profile";
+}
+
+
+
+<div style="width:100%">
+    <div style="width:100%">
+        <div style="display: inline-block">
+            <h2>@Model.UserName</h2>
+            <h5>@Model.FirstName @Model.LastName</h5>
+            <br />
+            <br />
+            <p>Email: @Model.Email</p>
+            <div>
+                You can manage your profile @Html.ActionLink("here", "Index", "Manage").
+            </div>
+        </div>
+        <div style="display:inline-block; float:right">
+            <img src="@Url.Action("UserPhotos", "Home" )" style="width:220px;height:220px; background: #FFFFFF;-moz-border-radius: 30px; padding: 4px; box-shadow: 0px 0px 10px #888;" />
+        </div>
+    </div>
+    <div>
+        <label>
+            Watchlist:
+        </label>
+        @if (Model.Watchlist.Count == 0)
+        {
+            <i>You have not yet added movies to your watchlist.</i>
+        }
+        else
+        {
+            var nrmov = 0;
+            <div>
+                @foreach (var movie in Model.Watchlist)
+                {
+                    nrmov = nrmov + 1;
+                    if (nrmov == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Movies/Details/@movie.MovieId">@movie.Title</a>
+                    <br />
+                }
+            </div>
+            if (nrmov == 4)
+            {
+                <a href="/Manage/Watchlist">See your full watchlist here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Favourite movies:
+        </label>
+        @if (Model.FavouriteMovies.Count == 0)
+        {
+            <i>You have not yet added movies to your favourites.</i>
+        }
+        else
+        {
+            var nrmov = 0;
+            <div>
+                @foreach (var movie in Model.FavouriteMovies)
+                {
+                    nrmov = nrmov + 1;
+                    if (nrmov == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Movies/Details/@movie.MovieId">@movie.Title</a>
+                    <br />
+                }
+            </div>
+            if (nrmov == 4)
+            {
+                <a href="/Manage/FavouriteMovies">See all your favourite movies here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Seen movies:
+        </label>
+        @if (Model.Seen.Count == 0)
+        {
+            <i>You have not yet added movies to your seen list.</i>
+        }
+        else
+        {
+            var nrmov = 0;
+            <div>
+                @foreach (var movie in Model.Seen)
+                {
+                    nrmov = nrmov + 1;
+                    if (nrmov == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Movies/Details/@movie.MovieId">@movie.Title</a>
+                    <br />
+                }
+            </div>
+            if (nrmov == 4)
+            {
+                <a href="/Manage/SeenMovies">Check out all your seen movies here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Movies you have reviewed:
+        </label>
+        @if (Model.Reviews.Count == 0)
+        {
+            <i>You have not reviewed any movies yet.</i>
+        }
+        else
+        {
+            var nrmov = 0;
+            <div>
+                @foreach (var movie in Model.Rated)
+                {
+                    nrmov = nrmov + 1;
+                    if (nrmov == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Movies/Details/@movie.MovieId">@movie.Title</a>
+                    <br />
+                }
+            </div>
+            if (nrmov == 4)
+            {
+                <a href="/Manage/RatedMovies">Check out all your rated movies here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Your reviews:
+        </label>
+        @if (Model.Reviews.Count == 0)
+        {
+            <i>You have not written any reviews.</i>
+        }
+        else
+        {
+            var nrrev = 0;
+            <div>
+                @foreach (var review in Model.Reviews)
+                {
+                    nrrev = nrrev + 1;
+                    if (nrrev == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Reviews/Details/@review.ReviewId">@review.Title (@review.Movie.Title)</a>
+                    <br />
+                }
+            </div>
+            if (nrrev == 4)
+            {
+                <a href="/Manage/Reviews">Check out all your reviews here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Your favourite actors:
+        </label>
+        @if (Model.FavouriteActors.Count == 0)
+        {
+            <i>You have not added any actors to this list.</i>
+        }
+        else
+        {
+            var nract = 0;
+            <div>
+                @foreach (var actor in Model.FavouriteActors)
+                {
+                    nract = nract + 1;
+                    if (nract == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Actors/Details/@actor.ActorId">@actor.FullName</a>
+                    <br />
+                }
+            </div>
+            if (nract == 4)
+            {
+                <a href="/Manage/FavouriteActors">Check out all your favourite actors here.</a>
+            }
+        }
+
+    </div>
+    <div>
+        <label>
+            Your genre preferences:
+        </label>
+        @if (Model.PreferredGenres.Count == 0)
+        {
+            <i>You have not added any genres to this list.</i>
+        }
+        else
+        {
+            var nrgen = 0;
+            <div>
+                @foreach (var gen in Model.PreferredGenres)
+                {
+                    nrgen = nrgen + 1;
+                    if (nrgen == 4)
+                    {
+                        break;
+                    }
+                    <a href="/Genres/Details/@gen.GenreId">@gen.Name</a>
+                    <br />
+                }
+            </div>
+            if (nrgen == 4)
+            {
+                <a href="/Manage/PreferredGenres">Check out all your favourite genres here.</a>
+            }
+        }
+
+    </div>
+</div>
+

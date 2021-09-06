@@ -1,0 +1,45 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "Coming Soon";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@if (ViewBag.ComingSoon.Count == 0)
+{
+    <p><i>No titles were added yet to this category. Please come back later.</i></p>
+}
+else
+{
+
+
+
+
+    foreach (var movie in ViewBag.ComingSoon)
+    {
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                @Html.Label("Title", "Title:")
+                <br />
+                <p>@movie.Title</p>
+
+                @Html.Label("Year", "Year:")
+                <br />
+                <p>@movie.Year</p>
+
+                @using (Html.BeginForm(actionName: "Details", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = movie.MovieId }))
+                {
+                    <button class="btn btn-primary">Details</button>
+                }
+
+            </div>
+
+        </div>
+    }
+
+
+
+}

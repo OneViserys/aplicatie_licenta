@@ -1,0 +1,48 @@
+﻿@model YMG.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage your account";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings, @ViewBag.userName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Your information:</dt>
+        <dd>
+            [
+
+            @Html.ActionLink("Update your profile data", "Edit", new { username = ViewBag.userName })
+
+            ]
+        </dd>
+        @if(ViewBag.haspicture)
+        { 
+        <dd>
+
+            @using(Html.BeginForm(actionName: "RemovePicture", controllerName: "Manage", method: FormMethod.Post))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete);
+                <button type="submit">Delete profile picture</button>
+            }
+
+        </dd>
+        }
+        
+    </dl>
+</div>

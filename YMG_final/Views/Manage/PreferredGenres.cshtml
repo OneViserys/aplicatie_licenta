@@ -1,0 +1,13 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Your Favourite Genres";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var genre in Model.PreferredGenres)
+{
+    <a href="/Genres/Details/@genre.GenreId">@genre.Name</a>
+    <br />
+}
+

@@ -1,0 +1,13 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Full Watchlist";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach(var movie in Model.Watchlist)
+            {
+                <a href="/Movies/Details/@movie.MovieId">@movie.Title</a>
+                <br />
+            }
+

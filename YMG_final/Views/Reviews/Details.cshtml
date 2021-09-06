@@ -1,0 +1,58 @@
+﻿@model YMG.Models.Review
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title</h2>
+<h5>by @Model.Author.UserName at @Model.CreatedAt</h5>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <label>Rating:</label>
+        <br /> 
+        <p>@Model.Rating</p>
+        <br />
+        <p>@Model.Text</p>
+    </div>
+    @if (ViewBag.Currentusername != Model.Author.UserName)
+    {
+
+        if (ViewBag.alreadyrep)
+        {
+                    <div class="panel-body">
+                        <p class="danger">You have already reported this review.</p>
+                    </div>
+        }
+        else
+        {
+        <div class="panel-body">
+            @using (Html.BeginForm(actionName: "Report", controllerName: "Reviews", method: FormMethod.Get, routeValues: new { id = Model.ReviewId }))
+            {<button class="btn btn-primary btn-danger">Report</button>
+                <br /><br />
+            }
+        </div>
+        }
+    }
+
+    <div class="panel-body">
+        @using (Html.BeginForm(actionName: "Details", controllerName: "Movies", method: FormMethod.Get, routeValues: new { id = Model.Movie.MovieId }))
+        {
+            <button class="btn btn-primary">Go back</button>
+            <br /><br />
+
+        }
+        @if (ViewBag.Currentusername == Model.Author.UserName)
+        {
+            using (Html.BeginForm(actionName: "Delete", controllerName: "Reviews", method: FormMethod.Post, routeValues: new { id = Model.ReviewId }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-primary">Delete review</button>
+                <br /><br />
+            }
+            using (Html.BeginForm(actionName: "Edit", controllerName: "Reviews", method: FormMethod.Get, routeValues: new { id = Model.ReviewId }))
+            {
+                <button class="btn btn-primary">Edit review</button>
+            }
+        }
+    </div>
+</div> 
+

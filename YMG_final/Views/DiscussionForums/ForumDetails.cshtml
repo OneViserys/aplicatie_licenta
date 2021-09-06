@@ -1,0 +1,66 @@
+﻿@model YMG.Models.DiscussionForum
+@{
+    ViewBag.Title = "ForumDetails";
+}
+
+<h2><b>@Model.Movie.Title</b> discussion forum</h2>
+
+<div class="panel">
+    <div class="panel-body">
+        @using (Html.BeginForm(actionName: "AddComment", controllerName: "DiscussionForums", method: FormMethod.Post, routeValues: new { id = Model.DiscussionForumId }))
+        {
+            <textarea cols="80" rows="3" placeholder="Add a comment..." name="text"></textarea>
+            <br />
+            <button type="submit" class="btn btn-primary" style="background-color: darkseagreen">Submit</button>
+        }
+    </div>
+    @if (Model.Comments.Count == 0)
+    {
+        <div class="panel-body"><i>No comments have been posted yet. Start a discussion by writing a comment.</i></div>
+    }
+    else
+    {
+        foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+        {
+            <div class="panel-body" style="width:60%; border-bottom:2px solid darkgreen">
+                @comment.Text
+                <hr />
+                <span style="font-size:0.7em; padding:1px; margin: 1px; color:darkgrey ">@comment.Author.UserName - at @comment.CreatedAt</span>
+                @if (comment.EditedAt != null)
+                {
+                    <span style="font-size:0.7em; padding:1px; margin: 1px; color:darkgrey ">edited at: @comment.EditedAt</span>
+                }
+                @if (comment.Author.UserName == ViewBag.currentusername)
+                {<span style="display: inline-block; padding: 5px; float: right">
+                        <span style="display: inline-block;">
+                            @using (Html.BeginForm(actionName: "EditComment", controllerName: "DiscussionForums", method: FormMethod.Get, routeValues: new { id = comment.CommentId }))
+                            {
+                                <button class="btn btn-primary" type="submit">Edit</button>
+                            }
+                        </span>
+                        <span style="display: inline-block;">
+                            @using (Html.BeginForm(actionName: "DeleteComment", controllerName: "DiscussionForums", method: FormMethod.Post, routeValues: new { commentId = comment.CommentId }))
+                            {
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            }
+                        </span>
+
+                    </span>
+                }
+                else
+                {
+                    if (ViewBag.user.ReportedComments.Contains(comment) == false)
+                    {
+                        using(Html.BeginForm(actionName: "Report", controllerName: "DiscussionForums", method: FormMethod.Get, routeValues: new { id = comment.CommentId }))
+                            {
+                                <button type="submit" class="btn btn-danger">Report</button>
+                            }
+                    }
+                }
+            </div>
+            <br />
+        }
+    }
+
+</div>

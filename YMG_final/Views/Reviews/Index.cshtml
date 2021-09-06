@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var rev in ViewBag.Reviews)
+{
+    <p>@rev.Title</p>
+    <p>@rev.Text</p>
+    <p>@rev.Author</p>
+    <p>@rev.Rating</p>
+    <p>@rev.Movie.Title</p>
+    <p>@rev.CreatedAt.ToString()</p>
+
+}

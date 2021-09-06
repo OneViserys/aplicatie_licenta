@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ManageReports";
+}
+
+<h2>Manage Review Reports</h2>
+
+@if(ViewBag.replist.Count == 0)
+            {
+    <p>No reviews were reported and not acted upon. Take a coffee break.</p>
+}
+else
+{
+    foreach(var reprev in ViewBag.replist)
+                {
+        <div class="panel-body">
+            <h4>@reprev.Review.Title</h4>
+            <p>Author: @reprev.Review.Author.UserName</p>
+            @using (Html.BeginForm(actionName: "ReportReviewDetails", controllerName: "Admin", method: FormMethod.Get, routeValues: new { id = reprev.Id }))
+            {
+                <button class="btn btn-primary">Details</button>
+            }
+        </div>
+                }
+}
+

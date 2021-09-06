@@ -1,0 +1,25 @@
+﻿@model IEnumerable<YMG.Models.Actor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Actors list:</h2>
+
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <label>Actor:</label>
+            <br />
+            @Html.DisplayFor(modelItem => item.FullName)
+
+
+        </div>
+        <div class="panel-body">
+            <button class="btn">@Html.ActionLink("Details", "Details", new { id = item.ActorId })</button>
+
+        </div>
+    </div>
+}

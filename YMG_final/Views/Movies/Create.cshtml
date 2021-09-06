@@ -1,0 +1,85 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "Add Movie";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Create", controllerName: "Movies", method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Label("Title", "Title:")
+    <br />
+    @Html.TextBoxFor(b => b.Title, null, new { placeholder = "Type in the movie's title", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Director", "Director:")
+    <br />
+    @Html.TextBoxFor(b => b.Director, null, new { placeholder = "Type in the movie's director", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Director, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Year", "Year:")
+    <br />
+    @Html.TextBoxFor(b => b.Year, null, new { placeholder = "Type in the year of release", @class = "form-control", @type = "number" })
+    @Html.ValidationMessageFor(b => b.Year, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Description", "Summary:")
+    <br />
+    @Html.TextArea("Description", null, new { placeholder = "Type in the movie's summary", @class = "form-control", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Description, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.LabelFor(m => m.PosterUrl, "Poster url:")
+    <br />
+    @Html.TextBoxFor(m => m.PosterUrl, null, new { placeholder = "Type in the poster url", @class = "form=control" })
+    @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+
+    @Html.LabelFor(m => m.CopyrightMessage, "Copyright attribution (if required):")
+    <br />
+    @Html.TextBoxFor(m => m.CopyrightMessage, null, new { placeholder = "Type in the attribution", @class = "form=control" })
+    @Html.ValidationMessageFor(m => m.CopyrightMessage, "", new { @class = "text-danger" })
+
+    @Html.LabelFor(m => m.TrailerUrl, "Trailer url:")
+    <br />
+    @Html.TextBoxFor(m => m.TrailerUrl, null, new { placeholder = "Type in the trailer url", @class = "form=control" })
+    @Html.ValidationMessageFor(m => m.TrailerUrl, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(m => m.Released)
+                @Html.LabelFor(m => m.Released)
+            </div>
+        </div>
+    </div>
+
+    @Html.LabelFor(b => b.GenresList, "Choose genres:")
+    <br />
+    for (int i = 0; i < Model.GenresList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.GenresList[i].Id)
+        @Html.HiddenFor(b => b.GenresList[i].Name)
+        @Html.CheckBoxFor(b => b.GenresList[i].Checked)
+        @Html.DisplayFor(b => b.GenresList[i].Name)
+        <br />
+    }
+
+    @Html.LabelFor(b => b.ActorsList, "Choose actors:")
+    <br />
+    for (int i = 0; i < Model.ActorsList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.ActorsList[i].Id)
+        @Html.HiddenFor(b => b.ActorsList[i].Name)
+        @Html.CheckBoxFor(b => b.ActorsList[i].Checked)
+        @Html.DisplayFor(b => b.ActorsList[i].Name)
+        <br />
+    }
+
+    <br />
+    <button class="btn btn-primary" type="submit">Create</button>
+}
+

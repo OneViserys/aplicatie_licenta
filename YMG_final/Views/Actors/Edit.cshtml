@@ -1,0 +1,87 @@
+﻿@model YMG.Models.Actor
+
+@{
+    ViewBag.Title = "Edit";
+}
+@if(ViewBag.errm != null)
+{
+    <p>@ViewBag.errm</p>
+}
+            else
+            {
+                <p>All good.</p>
+            }
+@if(ViewBag.y != null)
+{
+    foreach(var x in ViewBag.y)
+                {
+                    <p>@x.ErrorMessage</p>
+                }
+}
+<h2>Edit actor</h2>
+@Html.ValidationSummary()
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Actors", method: FormMethod.Post, routeValues: new { id = Model.ActorId }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ActorId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName, "Full name:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Bio, "Short bio:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PictureUrl, "Picture url:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PictureUrl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PictureUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CopyrightMessage, "Copyright message (if required):", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CopyrightMessage, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CopyrightMessage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(b => b.MoviesList, "Choose movies:")
+        <br />
+        @for (int i = 0; i < Model.MoviesList.Count(); i++)
+        {
+            @Html.HiddenFor(b => b.MoviesList[i].Id)
+            @Html.HiddenFor(b => b.MoviesList[i].Name)
+            @Html.CheckBoxFor(b => b.MoviesList[i].Checked)
+            @Html.DisplayFor(b => b.MoviesList[i].Name)
+            <br />
+        }
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

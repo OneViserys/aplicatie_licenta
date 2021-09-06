@@ -1,0 +1,80 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2 style="font-family:'Ink Free'; font-size:40px; float: right"><b>Admin Area</b></h2>
+    </div>
+    <div class="panel-body">
+        Welcome, Admin @Model.FirstName.
+    </div>
+    <div class="panel-body">
+        <h3><b>User management</b></h3>
+        <br />
+        <p>Here you can access the user's accounts to edit their details, update their role or delete them. Please use your best judgement.</p>
+        @using (Html.BeginForm(actionName: "Index", controllerName: "Users", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Manage users</button>
+        }
+    </div>
+    <div class="panel-body">
+        <h3><b>Movies management</b></h3>
+        <br />
+        <p>
+            Here you can add new movies to the database, update the details of the ones already existing and delete the ones that are no longer wanted/ needed.
+        </p>
+        @using (Html.BeginForm(actionName: "ManageMovies", controllerName: "Admin", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Manage movies</button>
+        }
+    </div>
+    <div class="panel-body">
+        <h3><b>Actors management</b></h3>
+        <br />
+        <p>
+            Here you can add new actors to the database, update the details of the ones already existing and delete the ones that are no longer wanted/ needed.
+        </p>
+        @using (Html.BeginForm(actionName: "ManageActors", controllerName: "Admin", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Manage actors</button>
+        }
+    </div>
+    <div class="panel-body">
+        <h3><b>Genres management</b></h3>
+        <br />
+        <p>
+            Here you can add new genres to the database, update the details of the ones already existing and delete the ones that are no longer wanted/ needed.
+        </p>
+        @using (Html.BeginForm(actionName: "ManageGenres", controllerName: "Admin", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Manage genres</button>
+        }
+    </div>
+    <div class="panel-body">
+        <h3><b>Manage reported reviews</b></h3>
+        <br />
+        <p>
+            Here you will see all the reports on user-submitted reviews, in the order of their urgency. Please use your best judgement when deciding your course of action.
+        </p>
+        @using (Html.BeginForm(actionName: "ManageReports", controllerName: "Admin", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Review Reports</button>
+        }
+    </div>
+    <div class="panel-body">
+        <h3><b>Manage reported comments</b></h3>
+        <br />
+        <p>
+            Here you will see all the reports on user-submitted comments, in the order of their urgency. Please use your best judgement when deciding your course of action.
+        </p>
+        @using (Html.BeginForm(actionName: "ManageCommentReports", controllerName: "Admin", method: FormMethod.Get))
+        {
+            <button class="btn btn-primary" type="submit">Comment reports</button>
+        }
+    </div>
+</div>
+

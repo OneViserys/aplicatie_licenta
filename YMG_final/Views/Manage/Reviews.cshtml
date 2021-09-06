@@ -1,0 +1,12 @@
+﻿@model YMG.Models.ApplicationUser
+@{
+    ViewBag.Title = "Your reviews";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var review in Model.Reviews)
+{
+    <a href="/Reviews/Details/@review.ReviewId">@review.Title (@review.Movie.Title)</a>
+    <br />
+}

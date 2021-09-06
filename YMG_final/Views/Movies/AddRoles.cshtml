@@ -1,0 +1,40 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "AddRoles";
+}
+@Html.ValidationSummary()
+
+<h2>Add Roles</h2>
+@using (Html.BeginForm(actionName: "AddRoles", controllerName: "Movies", method: FormMethod.Post, routeValues: new { id = Model.MovieId }))
+{
+    @Html.HiddenFor(m => m.MovieId)
+
+
+
+
+    @Html.LabelFor(m => m.Characters, "Characters:")
+    for (int i = 0; i < Model.Characters.Count(); i++)
+    {
+        if (Model.Characters.Count == 0)
+        {
+            <p>empty chars list</p>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Characters[i].ActorId)
+            @Html.HiddenFor(m => m.Characters[i].ActorRoleId)
+            @Html.HiddenFor(m => m.Characters[i].MovieId)
+            <div style="padding: 5px;">
+                <div style="display: inline-block; width:25%">
+                    Actor: @Model.Characters[i].Actor.FullName
+                </div>
+                <div style="display: inline-block">
+                    Character: @Html.TextBoxFor(model => model.Characters[i].CharacterName)
+                </div>
+            </div>
+        }
+
+    }
+    <button type="submit">Done</button>
+}
+

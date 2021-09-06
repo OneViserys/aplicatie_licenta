@@ -1,0 +1,54 @@
+﻿@model YMG.Models.ReportComment
+@{
+    ViewBag.Title = "ReportReviewDetails";
+}
+
+<h2>Review Comment Report</h2>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Comment.Forum.Movie.Title, "Discussion Forum:")
+    @Html.DisplayFor(x => x.Comment.Forum.Movie.Title)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Comment.Author.UserName, "Author:")
+    @Html.DisplayFor(x => x.Comment.Author.UserName)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Comment.Text, "Comment body:")
+    @Html.DisplayFor(x => x.Comment.Text)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Comment.NumberOfReports, "number of reports:")
+    @Html.DisplayFor(x => x.Comment.NumberOfReports)
+</div>
+
+<div class="panel-body">
+    @Html.LabelFor(x => x.Reason, "Reason for reporting:")
+    @Html.DisplayFor(x => x.Reason)
+</div>
+
+
+<div class="panel-body">
+    @using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Delete the comment</button>
+    }
+    <br />
+    @using (Html.BeginForm(actionName: "ClearCommentReport", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Clear this report</button>
+    }
+    <br />
+    @using (Html.BeginForm(actionName: "ClearCommentReports", controllerName: "Admin", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary">Clear all reports for this comment</button>
+    }
+</div>
+
+

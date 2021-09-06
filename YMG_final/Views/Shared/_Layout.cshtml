@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yourMovieGuide</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="~fonts/font-awesome.min.css">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span style="font-family: 'Ink Free'">@Html.ActionLink("yourMovieGuide", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</span>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
+                    <li>@Html.ActionLink("Actors", "Index", "Actors")</li>
+                    <li>@Html.ActionLink("Genres", "Index", "Genres")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+               
+                <li>
+                    @using (Html.BeginForm(actionName: "Search", controllerName: "Home", method: FormMethod.Post))
+                    {
+                        <input type="text" name="searchQuery" placeholder="Search..." rows="1" , cols="80" style="width:70%; margin-top: 12px; margin-left: 10px">
+                        <button type="submit">Find</button>
+                    }
+                            </li>
+                    </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer style="font-size: 0.7em">
+            <p>&copy; @DateTime.Now.Year.</p>
+            <p>We do not claim ownership to any of the movies, characters, images or other content related to the films. The uncredited images are either part of the public domain or used under @Html.ActionLink("fair use", "FairUse", "Home"). </p>
+            <p>If you own the rights for any content on our application or are the representative of the owner entity and wish to have it taken down, please @Html.ActionLink("contact us", "Contact", "Home").</p>
+        </footer>
+    </div>
+
+   
+</body>
+</html>

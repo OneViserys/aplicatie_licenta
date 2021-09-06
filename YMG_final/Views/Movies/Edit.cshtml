@@ -1,0 +1,93 @@
+﻿@model YMG.Models.Movie
+@{
+    ViewBag.Title = "Edit";
+}
+@Html.ValidationSummary()
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Movies"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(b => b.MovieId)
+    <br />
+    <br />
+
+    @Html.Label("Title", "Title:")
+    <br />
+    @Html.EditorFor(b => b.Title, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Director", "Director:")
+    <br />
+    @Html.EditorFor(b => b.Director, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Director, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Year", "Year:")
+    <br />
+    @Html.EditorFor(b => b.Year, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Year, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Description", "Summary:")
+    <br />
+    @Html.TextAreaFor(b => b.Description, new { @class = "form-control", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Description, "", new { @class = "text-danger" })
+    <br />
+
+    <br />
+
+    @Html.Label("CopyrightMessage", "Copyright message:")
+    <br />
+    @Html.EditorFor(b => b.CopyrightMessage, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.CopyrightMessage, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("PosterUrl", "Poster url:")
+    <br />
+    @Html.EditorFor(b => b.PosterUrl, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.PosterUrl, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("TrailerUrl", "TrailerUrl:")
+    <br />
+    @Html.EditorFor(b => b.TrailerUrl, new { @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.TrailerUrl, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Released", "Released:")
+    <br />
+    @Html.EditorFor(b => b.Released, new { @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Released, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.LabelFor(b => b.GenresList, "Choose genres:")
+    <br />
+    for (int i = 0; i < Model.GenresList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.GenresList[i].Id)
+        @Html.HiddenFor(b => b.GenresList[i].Name)
+        @Html.CheckBoxFor(b => b.GenresList[i].Checked)
+        @Html.DisplayFor(b => b.GenresList[i].Name)
+        <br />
+    }
+    <br />
+
+    @Html.LabelFor(b => b.ActorsList, "Choose actors:")
+    <br />
+    for (int i = 0; i < Model.ActorsList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.ActorsList[i].Id)
+        @Html.HiddenFor(b => b.ActorsList[i].Name)
+        @Html.CheckBoxFor(b => b.ActorsList[i].Checked)
+        @Html.DisplayFor(b => b.ActorsList[i].Name)
+        <br />
+    }
+    <br />
+
+    <button class="btn btn-primary" type="submit">Update</button>
+}
+
